@@ -15,7 +15,7 @@ const Register = () => {
       name: name,
       username: username,
       password: password,
-      roleId: 1,
+      roleId: 2,
     };
     console.log(payload);
     axios
