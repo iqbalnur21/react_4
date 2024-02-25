@@ -6,6 +6,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [notif, setNotif] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,18 +26,33 @@ const Login = () => {
       password: password,
     };
 
+    setLoading(true);
+
     axios
       .post("https://api.mudoapi.tech/login", payload)
       .then((res) => {
         const token = res.data.data.token;
+        localStorage.setItem("access_token", token);
         if (token) {
+          setLoading(false);
           setNotif("Berhasil Login");
           setTimeout(() => {
-            navigate("/home");
+            navigate("/");
           }, 1000);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoading(false);
+        const msg = err.response.data.message;
+        if (msg == "Username not found") {
+          setNotif("Username Tidak Ditemukan, Masukkan Username Yang Benar");
+        } else if (msg == "Incorrect Password") {
+          setNotif("Password Salah, Silahkan Masukkan Password Yang Benar");
+        } else {
+          setNotif(err.response.data.message);
+        }
+        console.log(err.response.data.message);
+      });
   };
   return (
     <div>
@@ -67,7 +83,9 @@ const Login = () => {
       >
         Register
       </button>
-      <button onClick={handleLogin}>Login</button>
+      <button disabled={loading} onClick={handleLogin}>
+        {loading ? "Loading..." : "Login"}
+      </button>
     </div>
   );
 };

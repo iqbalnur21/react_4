@@ -26,7 +26,7 @@ const Register = () => {
         if (token) {
           setNotif("Berhasil Daftar");
           setTimeout(() => {
-            navigate("/home");
+            navigate("/");
           }, 1000);
         }
       })
