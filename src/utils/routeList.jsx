@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Menu from "../pages/Menu";
 import MenuDetail from "../pages/MenuDetail";
 import ProtectedRoute from "./ProtectedRoute";
+import CreateMenu from "../pages/CreateMenu";
 
 const routeList = [
   {
@@ -24,7 +25,15 @@ const routeList = [
     path: "/menu",
     element: (
       <ProtectedRoute>
-        <Menu />
+        <Menu /> 
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/menu/create",
+    element: (
+      <ProtectedRoute>
+        <CreateMenu /> 
       </ProtectedRoute>
     ),
   },

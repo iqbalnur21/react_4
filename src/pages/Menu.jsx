@@ -8,7 +8,7 @@ function Menu() {
 
   const getMenu = () => {
     axios
-      .get("https://api.mudoapi.tech/menus")
+      .get("https://api.mudoapi.tech/menus?perPage=10")
       .then((res) => setMenus(res.data.data.Data))
       .catch((err) => console.log(err));
   };
@@ -22,6 +22,10 @@ function Menu() {
   return (
     <div>
       <Navbar />
+
+      <Link to={`/menu/create`}>
+        <button>Add Menu</button>
+      </Link>
       {menus.map((item) => (
         <div key={item.id}>
           <h1>{item.name}</h1>
